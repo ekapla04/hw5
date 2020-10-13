@@ -1,0 +1,116 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Quick Pick</title>
+</head>
+<body>
+
+    <script language="javascript">
+        var ranNum;
+        var ranNums = [];
+        var duplicateNums = [];
+
+        /***************** generate quick pick numbers *****************/
+        while (ranNums.length < 5){
+            min = Math.ceil(1);
+            max = Math.floor(48);
+            ranNum = Math.floor(Math.random() * (max - min) + min);
+            duplicateNums.push(ranNum);
+            var dup = 0;
+            /* check to see if number is already in array */
+            for (var i = 0; i < duplicateNums.length; i++){
+                if (ranNums == duplicateNums){
+                    dup++;
+                }
+            }
+            if(dup == 0){
+                ranNums.push(ranNum);
+            }
+        }
+
+        /***************** sort numbers in ranNums *****************/
+        ranNums.sort((a,b)=>a-b);
+
+        /***************** generate lucky ball number *****************/
+        ranLuckyBall = Math.floor(Math.random() * (Math.floor(18) 
+                   - Math.ceil(1)) + Math.ceil(1));
+        
+        /***************** get user input and organize it *****************/
+        var numArray = [];
+        winningNums = prompt("Enter winning numbers separated by a space","");
+        luckyBall = prompt("Enter lucky ball number","");
+        numArray = winningNums.split(" ");
+        numArray.sort((a,b)=>a-b);
+
+        /***************** compare user input & quick pick *****************/
+        var numMatch = 0;
+        for (var i = 0; i < ranNums.length; i++){
+            for (var j = 0; j < numArray.length; j++){
+                if (ranNums[i] == numArray[j]){
+                    numMatch++;
+                }
+            }
+        }
+        var ballMatch = 0;
+        if (ranLuckyBall == luckyBall){
+            ballMatch = 1;
+        }
+
+        /***************** printing *****************/    
+        document.write("The quick pick numbers are: "); 
+            for ( i = 0; i < ranNums.length; i++){
+                document.write(ranNums[i] + " "); 
+            }
+        document.write("<br>");
+        document.write("The lucky ball number is " + ranLuckyBall + "<br>"); 
+        document.write("<br>");
+        document.write("The winning numbers are: ");
+            for ( i = 0; i < numArray.length; i++){
+                document.write(numArray[i] + " "); 
+            } 
+        document.write("<br>");
+        document.write("The lucky ball number is " + luckyBall + "<br>"); 
+        document.write("<br>");
+
+        /***************** calulate winnings *****************/   
+        if (numMatch == 0 && ballMatch == 0){
+            document.write("You lose! Come back another day");
+        }
+        else {
+            document.write("You win! Your payout is: ");
+            if (numMatch == 5 && ballMatch == 1){ 	
+                document.write("$7,000 a WEEK for LIFE");
+            }
+            if (numMatch == 5 && ballMatch == 0){
+                document.write("$25,000 a YEAR for LIFE");
+            }
+            if (numMatch == 4 && ballMatch == 1){
+                document.write("$5,000");
+            }
+            if (numMatch == 4 && ballMatch == 0){
+                document.write("$200");
+            }
+            if (numMatch == 3 && ballMatch == 1){
+                document.write("$150");
+            }
+            if (numMatch == 3 && ballMatch == 0){
+                document.write("$20");
+            }
+            if (numMatch == 2 && ballMatch == 1){
+                document.write("$25");
+            }
+            if (numMatch == 2 && ballMatch == 0){
+                document.write("$3");
+            }
+            if (numMatch == 1 && ballMatch == 1){
+                document.write("$6");
+            }
+            if (numMatch == 0 && ballMatch == 1){
+                document.write("$4");
+            }
+        }
+    </script>
+
+
+</body>
+</html>
